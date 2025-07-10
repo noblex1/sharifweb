@@ -125,6 +125,7 @@ const ContactSection = () => {
               Send Message
             </h3>
             <form action="https://api.web3forms.com/submit" method="POST" onSubmit={handleSubmit} className="space-y-6">
+            <input type="hidden" name="access_key" value="d2d3c704-2cf0-42ac-aabe-da9195a330b8"></input>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-gray-300">
@@ -140,7 +141,7 @@ const ContactSection = () => {
                     required
                   />
                 </div>
-                <input type="hidden" name="access_key" value="94aea3cd-7864-41df-8bd8-b4410da94d78"></input>
+                
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-gray-300">
                     Email Address
