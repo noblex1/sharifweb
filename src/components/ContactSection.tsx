@@ -18,18 +18,74 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submitted!');
+    console.log('Form data state:', formData);
+    
+    // Validate form data
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      console.error('Form validation failed:', formData);
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
-    });
-    
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      // Create form data with all required fields for Web3Forms
+      const formDataToSend = new FormData();
+      formDataToSend.append('access_key', '94aea3cd-7864-41df-8bd8-b4410da94d78');
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('subject', formData.subject);
+      formDataToSend.append('message', formData.message);
+      formDataToSend.append('from_name', formData.name);
+      formDataToSend.append('replyto', formData.email);
+      formDataToSend.append('botcheck', '');
+      
+      console.log('Sending form data:', {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      });
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataToSend
+      });
+      
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      console.log('Web3Forms response:', result);
+      
+      if (result.success) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon!",
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error(result.message || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error Sending Message",
+        description: "Something went wrong. Please try again or contact me directly via email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -124,12 +180,11 @@ const ContactSection = () => {
               <Send className="h-6 w-6 sm:h-8 sm:w-8 text-cyan-400" />
               Send Message
             </h3>
-            <form action="https://api.web3forms.com/submit" method="POST" onSubmit={handleSubmit} className="space-y-6">
-            <input type="hidden" name="access_key" value="d2d3c704-2cf0-42ac-aabe-da9195a330b8"></input>
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-gray-300">
-                    Full Name
+                    Full Name *
                   </label>
                   <Input
                     id="name"
@@ -144,7 +199,7 @@ const ContactSection = () => {
                 
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-gray-300">
-                    Email Address
+                    Email Address *
                   </label>
                   <Input
                     id="email"
@@ -161,7 +216,7 @@ const ContactSection = () => {
               
               <div className="space-y-2">
                 <label htmlFor="subject" className="text-sm font-medium text-gray-300">
-                  Subject
+                  Subject *
                 </label>
                 <Input
                   id="subject"
@@ -176,7 +231,7 @@ const ContactSection = () => {
               
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium text-gray-300">
-                  Message
+                  Message *
                 </label>
                 <Textarea
                   id="message"
