@@ -184,7 +184,7 @@ const ContactSection = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-gray-300">
-                    Full Name *
+                    Full Name 
                   </label>
                   <Input
                     id="name"
@@ -199,7 +199,7 @@ const ContactSection = () => {
                 
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-gray-300">
-                    Email Address *
+                    Email Address 
                   </label>
                   <Input
                     id="email"
@@ -216,7 +216,7 @@ const ContactSection = () => {
               
               <div className="space-y-2">
                 <label htmlFor="subject" className="text-sm font-medium text-gray-300">
-                  Subject *
+                  Subject 
                 </label>
                 <Input
                   id="subject"
@@ -231,7 +231,7 @@ const ContactSection = () => {
               
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium text-gray-300">
-                  Message *
+                  Message
                 </label>
                 <Textarea
                   id="message"
