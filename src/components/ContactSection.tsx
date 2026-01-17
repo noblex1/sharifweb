@@ -39,7 +39,14 @@ const ContactSection = () => {
       const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
       
       if (!accessKey) {
-        throw new Error('Web3Forms access key is not configured');
+        console.error('Web3Forms access key is missing. Environment variable VITE_WEB3FORMS_ACCESS_KEY is not set.');
+        toast({
+          title: "Configuration Error",
+          description: "Contact form is not properly configured. Please contact me directly via email.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
       }
       
       const formDataToSend = new FormData();
@@ -52,22 +59,32 @@ const ContactSection = () => {
       formDataToSend.append('replyto', formData.email);
       formDataToSend.append('botcheck', '');
       
-      console.log('Sending form data:', {
+      // Add origin for better tracking
+      formDataToSend.append('website', window.location.origin);
+      
+      console.log('Sending form data to Web3Forms:', {
+        origin: window.location.origin,
+        hasAccessKey: !!accessKey,
         name: formData.name,
         email: formData.email,
-        subject: formData.subject,
-        message: formData.message
+        subject: formData.subject
       });
       
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
         body: formDataToSend
       });
       
       console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
       
       const result = await response.json();
@@ -80,13 +97,31 @@ const ContactSection = () => {
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        throw new Error(result.message || 'Failed to send message');
+        const errorMessage = result.message || result.error || 'Failed to send message';
+        console.error('Web3Forms error:', errorMessage, result);
+        throw new Error(errorMessage);
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = "Something went wrong. Please try again or contact me directly via email.";
+      
+      if (error instanceof Error) {
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          errorMessage = "Network error. Please check your connection and try again.";
+        } else if (error.message.includes('HTTP error')) {
+          errorMessage = `Server error (${error.message}). Please try again later.`;
+        } else if (error.message.includes('access key')) {
+          errorMessage = "Configuration error. Please contact me directly via email.";
+        } else {
+          errorMessage = error.message || errorMessage;
+        }
+      }
+      
       toast({
         title: "Error Sending Message",
-        description: "Something went wrong. Please try again or contact me directly via email.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
