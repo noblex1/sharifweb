@@ -23,7 +23,7 @@ const Footer = () => {
           <div className="flex flex-col items-center lg:items-end gap-6">
             <div className="flex items-center gap-4 sm:gap-6">
               <a
-                href="https://github.com/sharifiddrisu"
+                href="https://github.com/noblex1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
@@ -32,7 +32,7 @@ const Footer = () => {
                 <Github className="h-5 w-5 sm:h-6 sm:w-6 text-neon-cyan group-hover:text-white transition-colors" />
               </a>
               <a
-                href="https://linkedin.com/in/sharif-iddrisu"
+                href="https://www.linkedin.com/in/sharifiddrisu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"

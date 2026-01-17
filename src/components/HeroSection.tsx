@@ -23,7 +23,7 @@ const HeroSection = () => {
 
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = '/assets/sharif-iddrisu-cv.pdf'; // Place your CV in public/assets/
+    link.href = '/assets/Sharif CV.pdf'; // CV file in public/assets/
     link.download = 'Sharif_Iddrisu_CV.pdf';
     document.body.appendChild(link);
     link.click();
@@ -134,7 +134,7 @@ const HeroSection = () => {
         {/* Social Links */}
         <div className="flex justify-center gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 lg:mb-12 xl:mb-16">
           <a
-            href="https://github.com/sharifiddrisu"
+            href="https://github.com/noblex1"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
@@ -143,7 +143,7 @@ const HeroSection = () => {
             <Github className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400 group-hover:text-white transition-colors" />
           </a>
           <a
-            href="https://linkedin.com/in/sharif-iddrisu"
+            href="https://www.linkedin.com/in/sharifiddrisu/"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"

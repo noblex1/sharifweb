@@ -36,8 +36,14 @@ const ContactSection = () => {
     
     try {
       // Create form data with all required fields for Web3Forms
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      
+      if (!accessKey) {
+        throw new Error('Web3Forms access key is not configured');
+      }
+      
       const formDataToSend = new FormData();
-      formDataToSend.append('access_key', '94aea3cd-7864-41df-8bd8-b4410da94d78');
+      formDataToSend.append('access_key', accessKey);
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('subject', formData.subject);
@@ -159,7 +165,7 @@ const ContactSection = () => {
                   </div>
                 </a>
                 <a
-                  href="https://linkedin.com/in/sharifiddrisu"
+                  href="https://www.linkedin.com/in/sharifiddrisu/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-neon-blue hover:text-white transition-all duration-300 group"
