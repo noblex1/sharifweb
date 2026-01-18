@@ -6,43 +6,25 @@ const ProjectsSection = () => {
   const projects = [
     {
       id: 1,
-      title: "NetWard AI",
-      description: "Advanced phishing detection system using machine learning algorithms to protect users from malicious websites and emails with real-time threat analysis.",
-      technologies: ["Python", "TensorFlow", "React", "Node.js", "MongoDB"],
-      category: "Cybersecurity",
+      title: "SafeNet",
+      description: "Blockchain-based public safety alert platform that leverages decentralized technology to provide secure, transparent, and reliable public safety notifications. Built using Sui blockchain and Move smart contracts to ensure immutability and trust in critical safety communications.",
+      technologies: ["Move (Sui)", "React", "TypeScript", "Blockchain", "Sui Network"],
+      category: "Blockchain & Public Safety",
       status: "In Development",
-      gradient: "from-red-500 to-pink-500",
-      features: ["Real-time Detection", "ML Models", "Web Protection"]
+      gradient: "from-blue-500 to-cyan-500",
+      features: ["Smart Contracts", "Decentralized Alerts", "Blockchain Security"],
+      period: "01/2026 - Present"
     },
     {
       id: 2,
-      title: "Smart ChatBot",
-      description: "NLP-powered conversational AI assistant that understands context and provides intelligent responses for various domains with natural language processing.",
-      technologies: ["Python", "OpenAI", "FastAPI", "React", "PostgreSQL"],
-      category: "Artificial Intelligence",
+      title: "WalBox",
+      description: "Decentralized file storage solution built on blockchain technology, enabling secure and distributed file storage with enhanced data integrity and accessibility. Utilizes smart contracts for storage management and access control.",
+      technologies: ["Move (Sui)", "React/Next.js", "TypeScript", "Blockchain", "Web3"],
+      category: "Decentralized Storage",
       status: "Completed",
-      gradient: "from-blue-500 to-cyan-500",
-      features: ["Context Awareness", "Multi-domain", "API Integration"]
-    },
-    {
-      id: 3,
-      title: "SecurePass",
-      description: "Advanced password generator and manager with encryption, breach monitoring, and secure vault functionality for enhanced digital security.",
-      technologies: ["JavaScript", "Electron", "Node.js", "MongoDB", "Crypto"],
-      category: "Cybersecurity",
-      status: "Completed",
-      gradient: "from-green-500 to-emerald-500",
-      features: ["Encryption", "Breach Monitor", "Secure Vault"]
-    },
-    {
-      id: 4,
-      title: "CyberVault",
-      description: "Data protection tracker that monitors file integrity, detects unauthorized access, and provides comprehensive security analytics dashboard.",
-      technologies: ["Python", "SQLite", "Tkinter", "Cryptography", "Flask"],
-      category: "Security Analytics",
-      status: "In Development",
       gradient: "from-purple-500 to-indigo-500",
-      features: ["File Monitoring", "Access Control", "Analytics"]
+      features: ["Decentralized Storage", "Smart Contracts", "File Management"],
+      period: "11/2025 - 12/2025"
     }
   ];
 
@@ -88,9 +70,17 @@ const ProjectsSection = () => {
                   </div>
 
                   {/* Enhanced Description */}
-                  <p className="text-gray-300 mb-6 leading-relaxed text-sm sm:text-base lg:text-lg">
+                  <p className="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base lg:text-lg">
                     {project.description}
                   </p>
+
+                  {/* Project Period */}
+                  {project.period && (
+                    <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+                      <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <span>{project.period}</span>
+                    </div>
+                  )}
 
                   {/* Key Features */}
                   <div className="mb-6">

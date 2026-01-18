@@ -7,25 +7,19 @@ const TechStackSection = () => {
 
   const techStack = {
     languages: [
-      { name: 'Python', level: 90, icon: '🐍', description: 'AI/ML Development' },
-      { name: 'JavaScript', level: 85, icon: '⚡', description: 'Web Development' },
-      { name: 'TypeScript', level: 80, icon: '🔷', description: 'Type Safety' },
-      { name: 'C++', level: 75, icon: '⚙️', description: 'System Programming' },
-      { name: 'Java', level: 70, icon: '☕', description: 'Enterprise Apps' },
+      { name: 'TypeScript', level: 85, icon: '🔷', description: 'Type-Safe Development' },
+      { name: 'JavaScript', level: 90, icon: '⚡', description: 'Web Development' },
+      { name: 'Move', level: 80, icon: '⛓️', description: 'Sui Blockchain' },
     ],
     frameworks: [
       { name: 'React', level: 90, icon: '⚛️', description: 'Frontend Library' },
-      { name: 'Node.js', level: 85, icon: '🟢', description: 'Backend Runtime' },
-      { name: 'TensorFlow', level: 80, icon: '🧠', description: 'Machine Learning' },
-      { name: 'FastAPI', level: 75, icon: '🚀', description: 'Python Web Framework' },
-      { name: 'Express', level: 70, icon: '🌐', description: 'Web Server Framework' },
+      { name: 'Next.js', level: 85, icon: '🚀', description: 'Full-Stack Framework' },
+      { name: 'Sui Blockchain', level: 75, icon: '🔗', description: 'Blockchain Platform' },
     ],
     tools: [
-      { name: 'Git', level: 90, icon: '📝', description: 'Version Control' },
-      { name: 'VS Code', level: 95, icon: '💻', description: 'Code Editor' },
       { name: 'Linux', level: 85, icon: '🐧', description: 'Operating System' },
-      { name: 'Docker', level: 70, icon: '🐳', description: 'Containerization' },
-      { name: 'Kali Linux', level: 80, icon: '🔒', description: 'Cybersecurity' },
+      { name: 'Git', level: 90, icon: '📝', description: 'Version Control' },
+      { name: 'Web3', level: 80, icon: '🌐', description: 'Blockchain Development' },
     ]
   };
 

@@ -6,26 +6,26 @@ const AboutSection = () => {
     {
       icon: <Book className="h-6 w-6 sm:h-8 sm:w-8 text-neon-cyan" />,
       title: "University for Development Studies",
-      description: "Computer Science Student",
-      year: "2022 - Present",
-      location: "Ghana"
+      description: "Bachelor of Science in Computer Science",
+      year: "01/2023 - Present",
+      location: "Tamale, Ghana"
     },
     {
       icon: <Code className="h-6 w-6 sm:h-8 sm:w-8 text-neon-blue" />,
-      title: "HackerBoost",
-      description: "Active Member & Developer",
-      year: "2023 - Present",
-      location: "Community"
+      title: "HackerBoost Developer Hub",
+      description: "Intern - Software Development Unit",
+      year: "06/2025 - 08/2025",
+      location: "Tamale, Ghana"
     }
   ];
 
   const skills = [
-    "Artificial Intelligence",
-    "Cybersecurity",
-    "Software Engineering",
-    "Python Development",
-    "JavaScript/React",
-    "Machine Learning"
+    "TypeScript",
+    "JavaScript",
+    "Move (Sui Blockchain)",
+    "React / Next.js",
+    "Linux",
+    "Blockchain Development"
   ];
 
   return (
@@ -51,25 +51,26 @@ const AboutSection = () => {
               </div>
               
               <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-6">
-                I'm a passionate Computer Science student from{' '}
+                I'm a motivated Computer Science undergraduate from{' '}
                 <span className="text-neon-cyan font-semibold">Kumasi, Ghana</span>, 
                 currently pursuing my degree at the University for Development Studies. 
-                My journey in technology is driven by an insatiable curiosity about{' '}
-                <span className="text-neon-blue font-semibold">Artificial Intelligence</span> and{' '}
-                <span className="text-neon-cyan font-semibold">Cybersecurity</span>.
+                I'm a graduate of the{' '}
+                <span className="text-neon-blue font-semibold">Sui Blockchain Bootcamp</span> with 
+                hands-on experience in software development, blockchain systems, and cybersecurity fundamentals.
               </p>
               
               <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-6">
-                As a budding software engineer, I believe in the power of code to solve 
-                real-world problems and create meaningful impact. I'm actively involved 
-                with <span className="text-neon-blue font-semibold">HackerBoost</span>, 
-                where I collaborate with like-minded developers to build innovative solutions.
+                I specialize in designing and implementing smart contract logic using{' '}
+                <span className="text-neon-cyan font-semibold">Move</span>, building full-stack applications, 
+                and collaborating in structured development environments. I'm passionate about secure, scalable, 
+                and impactful systems, with strong interest in{' '}
+                <span className="text-neon-blue font-semibold">Web3 infrastructure</span>, public safety technology, 
+                and open-source development.
               </p>
 
               <p className="text-base sm:text-lg leading-relaxed text-gray-300">
-                When I'm not coding, you'll find me exploring the latest developments in 
-                AI research, studying cybersecurity frameworks, or contributing to open-source 
-                projects that make technology more accessible to everyone.
+                Currently seeking <span className="text-neon-cyan font-semibold">internship or junior software/blockchain 
+                developer roles</span> where I can contribute to meaningful projects and continue growing in the Web3 space.
               </p>
             </div>
 

@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Github, Linkedin, ArrowRight, Mail, MapPin, User, MessageSquare, Send } from 'lucide-react';
+import { Github, Linkedin, ArrowRight, Mail, MapPin, User, MessageSquare, Send, Twitter, Facebook, Phone, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -166,18 +166,30 @@ const ContactSection = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <User className="h-5 w-5 sm:h-6 sm:w-6 text-neon-blue mt-1 flex-shrink-0" />
+                  <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-neon-blue mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-lg sm:text-xl font-semibold text-neon-blue mb-2">Education</h4>
-                    <p className="text-gray-300 text-sm sm:text-base">University for Development Studies</p>
-                    <p className="text-gray-400 text-xs sm:text-sm mt-1">Computer Science Student</p>
+                    <h4 className="text-lg sm:text-xl font-semibold text-neon-blue mb-2">Email</h4>
+                    <a href="mailto:sharifiddrisu156@gmail.com" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
+                      sharifiddrisu156@gmail.com
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400 mt-1 flex-shrink-0" />
+                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="text-lg sm:text-xl font-semibold text-purple-400 mb-2">Interests</h4>
-                    <p className="text-gray-300 text-sm sm:text-base">AI Development, Cybersecurity, Open Source</p>
+                    <h4 className="text-lg sm:text-xl font-semibold text-purple-400 mb-2">Phone</h4>
+                    <a href="tel:+233241600434" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
+                      +233 24 160 0434
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-green-400 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-lg sm:text-xl font-semibold text-green-400 mb-2">Portfolio</h4>
+                    <a href="https://sharifiddrisu-online.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
+                      sharifiddrisu-online.netlify.app
+                    </a>
                   </div>
                 </div>
               </div>
@@ -209,6 +221,30 @@ const ContactSection = () => {
                   <div className="text-left">
                     <span className="font-medium text-sm sm:text-base block">LinkedIn</span>
                     <span className="text-xs text-gray-400">Professional network</span>
+                  </div>
+                </a>
+                <a
+                  href="https://x.com/SharifIddr31325"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-gray-300 hover:text-white transition-all duration-300 group"
+                >
+                  <Twitter className="h-6 w-6 sm:h-8 sm:w-8 group-hover:scale-110 transition-transform" />
+                  <div className="text-left">
+                    <span className="font-medium text-sm sm:text-base block">X (Twitter)</span>
+                    <span className="text-xs text-gray-400">Follow updates</span>
+                  </div>
+                </a>
+                <a
+                  href="https://facebook.com/baba.sharif.545"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-blue-500 hover:text-white transition-all duration-300 group"
+                >
+                  <Facebook className="h-6 w-6 sm:h-8 sm:w-8 group-hover:scale-110 transition-transform" />
+                  <div className="text-left">
+                    <span className="font-medium text-sm sm:text-base block">Facebook</span>
+                    <span className="text-xs text-gray-400">Connect socially</span>
                   </div>
                 </a>
               </div>

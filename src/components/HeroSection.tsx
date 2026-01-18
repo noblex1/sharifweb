@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { ArrowDown, Code, Github, Linkedin, Mail, Download } from 'lucide-react';
+import { ArrowDown, Code, Github, Linkedin, Mail, Download, Twitter, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
   const taglines = [
-    "Building the Future with Code",
-    "AI & Cybersecurity Enthusiast",
-    "Crafting Intelligent Solutions"
+    "Blockchain & Software Developer",
+    "Web3 Infrastructure Builder",
+    "Building Secure, Scalable Systems"
   ];
 
   useEffect(() => {
@@ -97,9 +97,9 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-400 mb-6 sm:mb-8 lg:mb-12 xl:mb-16 max-w-4xl mx-auto leading-relaxed px-2">
-          Computer Science Student | Software Engineer | Passionate About{' '}
-          <span className="text-cyan-400 font-medium">Artificial Intelligence</span> and{' '}
-          <span className="text-blue-400 font-medium">Cybersecurity</span>
+          Computer Science Student | Blockchain & Software Developer | Passionate About{' '}
+          <span className="text-cyan-400 font-medium">Web3 Infrastructure</span> and{' '}
+          <span className="text-blue-400 font-medium">Open Source Development</span>
         </p>
 
         {/* CTA Buttons */}
@@ -150,6 +150,24 @@ const HeroSection = () => {
             aria-label="LinkedIn Profile"
           >
             <Linkedin className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400 group-hover:text-white transition-colors" />
+          </a>
+          <a
+            href="https://x.com/SharifIddr31325"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
+            aria-label="X (Twitter) Profile"
+          >
+            <Twitter className="h-5 w-5 sm:h-6 sm:w-6 text-gray-300 group-hover:text-white transition-colors" />
+          </a>
+          <a
+            href="https://facebook.com/baba.sharif.545"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
+            aria-label="Facebook Profile"
+          >
+            <Facebook className="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 group-hover:text-white transition-colors" />
           </a>
         </div>
 
