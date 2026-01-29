@@ -13,7 +13,9 @@ const ProjectsSection = () => {
       status: "In Development",
       gradient: "from-blue-500 to-cyan-500",
       features: ["Smart Contracts", "Decentralized Alerts", "Blockchain Security"],
-      period: "01/2026 - Present"
+      period: "01/2026 - Present",
+      githubUrl: "https://github.com/noblex1/SafeNet-V2",
+      liveUrl: null
     },
     {
       id: 2,
@@ -24,7 +26,22 @@ const ProjectsSection = () => {
       status: "Completed",
       gradient: "from-purple-500 to-indigo-500",
       features: ["Decentralized Storage", "Smart Contracts", "File Management"],
-      period: "11/2025 - 12/2025"
+      period: "11/2025 - 12/2025",
+      githubUrl: "https://github.com/Sui-North/WalBox",
+      liveUrl: "https://walbox.vercel.app/"
+    },
+    {
+      id: 3,
+      title: "NetWard AI",
+      description: "AI-Powered Phishing Detection & Threat Intelligence Platform. A futuristic, AI-powered web security tool that detects phishing links, spoofed websites, and unauthorized redirects in real-time. Designed with advanced threat intelligence and machine learning, NetWard AI scans every URL to protect users from hidden cyber threats.",
+      technologies: ["AI/ML", "React", "TypeScript", "Threat Intelligence", "Cybersecurity"],
+      category: "AI & Cybersecurity",
+      status: "Completed",
+      gradient: "from-red-500 to-orange-500",
+      features: ["Phishing Detection", "Real-time Scanning", "Threat Intelligence"],
+      period: "2025",
+      githubUrl: "https://github.com/noblex1/NetWard.ai",
+      liveUrl: "https://net-ward-ai.vercel.app/"
     }
   ];
 
@@ -41,7 +58,7 @@ const ProjectsSection = () => {
           <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-neon-cyan to-neon-blue mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
           {projects.map((project) => (
             <div key={project.id} className="group perspective">
               <div className="relative preserve-3d transition-all duration-700 hover:scale-105">
@@ -114,21 +131,27 @@ const ProjectsSection = () => {
 
                   {/* Enhanced Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="flex-1 glass-effect border-neon-cyan/50 text-neon-cyan hover:bg-neon-cyan hover:text-slate-900 group-hover:scale-105 transition-all duration-300 font-medium"
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      View Code
-                    </Button>
-                    <Button 
-                      size="sm"
-                      className="flex-1 bg-gradient-to-r from-neon-cyan to-neon-blue hover:from-neon-blue hover:to-neon-cyan group-hover:scale-105 transition-all duration-300 font-medium"
-                    >
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Live Demo
-                    </Button>
+                    {project.githubUrl && (
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="flex-1 glass-effect border-neon-cyan/50 text-neon-cyan hover:bg-neon-cyan hover:text-slate-900 group-hover:scale-105 transition-all duration-300 font-medium"
+                        onClick={() => window.open(project.githubUrl, '_blank')}
+                      >
+                        <Github className="mr-2 h-4 w-4" />
+                        View Code
+                      </Button>
+                    )}
+                    {project.liveUrl && (
+                      <Button 
+                        size="sm"
+                        className="flex-1 bg-gradient-to-r from-neon-cyan to-neon-blue hover:from-neon-blue hover:to-neon-cyan group-hover:scale-105 transition-all duration-300 font-medium"
+                        onClick={() => window.open(project.liveUrl, '_blank')}
+                      >
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Live Demo
+                      </Button>
+                    )}
                   </div>
                 </div>
 
