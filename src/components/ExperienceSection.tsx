@@ -1,28 +1,77 @@
 
 import { Briefcase, Calendar, MapPin, Building2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+interface Experience {
+  _id: string;
+  company: string;
+  position: string;
+  period: string;
+  location: string;
+  description: string;
+  achievements: string[];
+  contact: {
+    name: string;
+    role: string;
+    email: string;
+    phone: string;
+  };
+}
 
 const ExperienceSection = () => {
-  const experiences = [
-    {
-      id: 1,
-      company: "HackerBoost Developer Hub",
-      position: "Intern - Software Development Unit",
-      period: "06/2025 - 08/2025",
-      location: "Tamale, Ghana",
-      description: "HackerBoost Developer Hub is a technology initiative established by DeFi Africa focused on training and empowering Web3 developers through structured learning and hands-on collaboration.",
-      achievements: [
-        "Collaborated with Web3 developers in structured development environments",
-        "Contributed to software development projects",
-        "Gained hands-on experience in blockchain and Web3 technologies"
-      ],
-      contact: {
-        name: "Yakubu Abdul Karim",
-        role: "CEO",
-        email: "hackerboost@hackerboost.org",
-        phone: "(+233) 597 244 448"
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchExperiences();
+  }, []);
+
+  const fetchExperiences = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/experiences`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setExperiences(data.data);
       }
+    } catch (error) {
+      console.error('Failed to fetch experiences:', error);
+      // Fallback to hardcoded data
+      setExperiences([
+        {
+          _id: '1',
+          company: "HackerBoost Developer Hub",
+          position: "Intern - Software Development Unit",
+          period: "06/2025 - 08/2025",
+          location: "Tamale, Ghana",
+          description: "HackerBoost Developer Hub is a technology initiative established by DeFi Africa focused on training and empowering Web3 developers through structured learning and hands-on collaboration.",
+          achievements: [
+            "Collaborated with Web3 developers in structured development environments",
+            "Contributed to software development projects",
+            "Gained hands-on experience in blockchain and Web3 technologies"
+          ],
+          contact: {
+            name: "Yakubu Abdul Karim",
+            role: "CEO",
+            email: "hackerboost@hackerboost.org",
+            phone: "(+233) 597 244 448"
+          }
+        }
+      ]);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <section id="experience" className="py-16 sm:py-20 lg:py-24 relative bg-slate-800/30">
+        <div className="container mx-auto px-4 text-center">
+          <div className="text-cyan-400 text-xl">Loading experiences...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="experience" className="py-16 sm:py-20 lg:py-24 relative bg-slate-800/30">
@@ -40,7 +89,7 @@ const ExperienceSection = () => {
         <div className="max-w-4xl mx-auto space-y-8 sm:space-y-12">
           {experiences.map((experience, index) => (
             <div
-              key={experience.id}
+              key={experience._id}
               className="relative glass-effect p-6 sm:p-8 lg:p-10 rounded-2xl hover-glow transition-all duration-300"
             >
               {/* Timeline connector */}

@@ -1,27 +1,78 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Code, Wrench, Zap, TrendingUp } from 'lucide-react';
+
+interface TechItem {
+  _id: string;
+  name: string;
+  category: 'languages' | 'frameworks' | 'tools';
+  level: number;
+  icon: string;
+  description: string;
+}
 
 const TechStackSection = () => {
   const [activeCategory, setActiveCategory] = useState('languages');
+  const [techStack, setTechStack] = useState<{ [key: string]: TechItem[] }>({
+    languages: [],
+    frameworks: [],
+    tools: []
+  });
+  const [loading, setLoading] = useState(true);
 
-  const techStack = {
-    languages: [
-      { name: 'TypeScript', level: 85, icon: '🔷', description: 'Type-Safe Development' },
-      { name: 'JavaScript', level: 90, icon: '⚡', description: 'Web Development' },
-      { name: 'Move', level: 80, icon: '⛓️', description: 'Sui Blockchain' },
-    ],
-    frameworks: [
-      { name: 'React', level: 90, icon: '⚛️', description: 'Frontend Library' },
-      { name: 'Next.js', level: 85, icon: '🚀', description: 'Full-Stack Framework' },
-      { name: 'Sui Blockchain', level: 75, icon: '🔗', description: 'Blockchain Platform' },
-    ],
-    tools: [
-      { name: 'Linux', level: 85, icon: '🐧', description: 'Operating System' },
-      { name: 'Git', level: 90, icon: '📝', description: 'Version Control' },
-      { name: 'Web3', level: 80, icon: '🌐', description: 'Blockchain Development' },
-    ]
+  useEffect(() => {
+    fetchTechStack();
+  }, []);
+
+  const fetchTechStack = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tech-stack`);
+      const data = await response.json();
+      
+      if (data.success) {
+        // Group by category
+        const grouped = data.data.reduce((acc: any, item: TechItem) => {
+          if (!acc[item.category]) acc[item.category] = [];
+          acc[item.category].push(item);
+          return acc;
+        }, { languages: [], frameworks: [], tools: [] });
+        
+        setTechStack(grouped);
+      }
+    } catch (error) {
+      console.error('Failed to fetch tech stack:', error);
+      // Fallback to hardcoded data
+      setTechStack({
+        languages: [
+          { _id: '1', name: 'TypeScript', level: 85, icon: '🔷', description: 'Type-Safe Development', category: 'languages' },
+          { _id: '2', name: 'JavaScript', level: 90, icon: '⚡', description: 'Web Development', category: 'languages' },
+          { _id: '3', name: 'Move', level: 80, icon: '⛓️', description: 'Sui Blockchain', category: 'languages' },
+        ],
+        frameworks: [
+          { _id: '4', name: 'React', level: 90, icon: '⚛️', description: 'Frontend Library', category: 'frameworks' },
+          { _id: '5', name: 'Next.js', level: 85, icon: '🚀', description: 'Full-Stack Framework', category: 'frameworks' },
+          { _id: '6', name: 'Sui Blockchain', level: 75, icon: '🔗', description: 'Blockchain Platform', category: 'frameworks' },
+        ],
+        tools: [
+          { _id: '7', name: 'Linux', level: 85, icon: '🐧', description: 'Operating System', category: 'tools' },
+          { _id: '8', name: 'Git', level: 90, icon: '📝', description: 'Version Control', category: 'tools' },
+          { _id: '9', name: 'Web3', level: 80, icon: '🌐', description: 'Blockchain Development', category: 'tools' },
+        ]
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <section id="tech-stack" className="py-16 sm:py-20 lg:py-24 relative bg-slate-900/50">
+        <div className="container mx-auto px-4 text-center">
+          <div className="text-cyan-400 text-xl">Loading tech stack...</div>
+        </div>
+      </section>
+    );
+  }
 
   const categories = [
     { key: 'languages', label: 'Languages', icon: Code, color: 'text-cyan-400' },
@@ -72,7 +123,7 @@ const TechStackSection = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {techStack[activeCategory as keyof typeof techStack].map((tech, index) => (
               <div
-                key={tech.name}
+                key={tech._id}
                 className="glass-effect p-6 sm:p-8 rounded-2xl hover-glow group cursor-pointer transition-all duration-300 hover:scale-105"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >

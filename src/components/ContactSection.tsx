@@ -1,12 +1,16 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Github, Linkedin, ArrowRight, Mail, MapPin, User, MessageSquare, Send, Twitter, Facebook, Phone, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const ContactSection = () => {
+  const [contactData, setContactData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,6 +19,40 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchContact();
+  }, []);
+
+  const fetchContact = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/contact`);
+      const data = await response.json();
+      if (data.success && data.data) {
+        setContactData(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching contact:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fallback data
+  const fallbackData = {
+    location: "Kumasi, Ashanti Region, Ghana",
+    email: "sharifiddrisu156@gmail.com",
+    phone: "+233 24 160 0434",
+    portfolio: "https://sharifiddrisu-online.netlify.app/",
+    socialLinks: {
+      github: "https://github.com/noblex1",
+      linkedin: "https://www.linkedin.com/in/sharifiddrisu/",
+      twitter: "https://x.com/SharifIddr31325",
+      facebook: "https://facebook.com/baba.sharif.545"
+    }
+  };
+
+  const data = contactData || fallbackData;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,6 +174,16 @@ const ContactSection = () => {
     }));
   };
 
+  if (loading) {
+    return (
+      <section id="contact" className="py-16 sm:py-20 lg:py-24 relative bg-slate-800/30">
+        <div className="container mx-auto px-4 text-center">
+          <div className="text-cyan-400 text-xl">Loading...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="contact" className="py-16 sm:py-20 lg:py-24 relative bg-slate-800/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,15 +210,15 @@ const ContactSection = () => {
                   <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-neon-cyan mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="text-lg sm:text-xl font-semibold text-neon-cyan mb-2">Location</h4>
-                    <p className="text-gray-300 text-sm sm:text-base">Kumasi, Ashanti Region, Ghana</p>
+                    <p className="text-gray-300 text-sm sm:text-base">{data.location}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-neon-blue mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="text-lg sm:text-xl font-semibold text-neon-blue mb-2">Email</h4>
-                    <a href="mailto:sharifiddrisu156@gmail.com" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
-                      sharifiddrisu156@gmail.com
+                    <a href={`mailto:${data.email}`} className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
+                      {data.email}
                     </a>
                   </div>
                 </div>
@@ -178,8 +226,8 @@ const ContactSection = () => {
                   <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="text-lg sm:text-xl font-semibold text-purple-400 mb-2">Phone</h4>
-                    <a href="tel:+233241600434" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
-                      +233 24 160 0434
+                    <a href={`tel:${data.phone}`} className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
+                      {data.phone}
                     </a>
                   </div>
                 </div>
@@ -187,8 +235,8 @@ const ContactSection = () => {
                   <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-green-400 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="text-lg sm:text-xl font-semibold text-green-400 mb-2">Portfolio</h4>
-                    <a href="https://sharifiddrisu-online.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
-                      sharifiddrisu-online.netlify.app
+                    <a href={data.portfolio} target="_blank" rel="noopener noreferrer" className="text-gray-300 text-sm sm:text-base hover:text-cyan-400 transition-colors">
+                      {data.portfolio}
                     </a>
                   </div>
                 </div>
@@ -200,7 +248,7 @@ const ContactSection = () => {
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">Connect With Me</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <a
-                  href="https://github.com/noblex1"
+                  href={data.socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-neon-cyan hover:text-white transition-all duration-300 group"
@@ -212,7 +260,7 @@ const ContactSection = () => {
                   </div>
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/sharifiddrisu/"
+                  href={data.socialLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-neon-blue hover:text-white transition-all duration-300 group"
@@ -224,7 +272,7 @@ const ContactSection = () => {
                   </div>
                 </a>
                 <a
-                  href="https://x.com/SharifIddr31325"
+                  href={data.socialLinks.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-gray-300 hover:text-white transition-all duration-300 group"
@@ -236,7 +284,7 @@ const ContactSection = () => {
                   </div>
                 </a>
                 <a
-                  href="https://facebook.com/baba.sharif.545"
+                  href={data.socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass-effect p-4 sm:p-6 rounded-xl hover-glow flex items-center justify-center gap-3 text-blue-500 hover:text-white transition-all duration-300 group"

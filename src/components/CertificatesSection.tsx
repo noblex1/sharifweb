@@ -1,58 +1,116 @@
 
 import { Award, Calendar, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useEffect, useState } from 'react';
+
+interface Certificate {
+  _id: string;
+  title: string;
+  issuer: string;
+  type: string | null;
+  event: string | null;
+  period: string;
+  description: string;
+  category: string;
+  gradient: string;
+  credentialUrl: string | null;
+}
 
 const CertificatesSection = () => {
-  const certificates = [
-    {
-      id: 1,
-      title: "Sui Bootcamp Graduate",
-      issuer: "Sui Network",
-      type: "On-chain NFT Certificate",
-      period: "11/2025 - 11/2025",
-      description: "Completed comprehensive bootcamp covering Sui blockchain fundamentals and Move programming language",
-      category: "Blockchain",
-      gradient: "from-blue-500 to-cyan-500"
-    },
-    {
-      id: 2,
-      title: "Sui Fundamentals (Move & Sui Blockchain)",
-      issuer: "Sui Network",
-      type: "On-chain NFT Certificate",
-      period: "11/2025 - 11/2025",
-      description: "Mastered Move programming language and Sui blockchain architecture, smart contract development, and decentralized application building",
-      category: "Blockchain",
-      gradient: "from-purple-500 to-indigo-500"
-    },
-    {
-      id: 3,
-      title: "Introduction to Ethical Hacking",
-      issuer: "Great Learning Academy",
-      period: "06/2023 - 06/2023",
-      description: "Learned fundamentals of ethical hacking, cybersecurity practices, and security assessment methodologies",
-      category: "Cybersecurity",
-      gradient: "from-red-500 to-pink-500"
-    },
-    {
-      id: 4,
-      title: "OBSCURA: The Future of Cybercrime",
-      issuer: "Flare",
-      period: "10/2025 - 10/2025",
-      description: "Explored emerging cybercrime trends, security threats, and defense strategies in modern cybersecurity landscape",
-      category: "Cybersecurity",
-      gradient: "from-orange-500 to-red-500"
-    },
-    {
-      id: 5,
-      title: "Certificate of Participation",
-      event: "Virtual Youth Summit 2025",
-      issuer: "IGER Africa",
-      period: "09/2025 - 09/2025",
-      description: "Active participation in youth summit focused on technology, innovation, and community development",
-      category: "Leadership",
-      gradient: "from-green-500 to-emerald-500"
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCertificates();
+  }, []);
+
+  const fetchCertificates = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/certificates`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setCertificates(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch certificates:', error);
+      // Fallback to hardcoded data
+      setCertificates([
+        {
+          _id: '1',
+          title: "Sui Bootcamp Graduate",
+          issuer: "Sui Network",
+          type: "On-chain NFT Certificate",
+          event: null,
+          period: "11/2025 - 11/2025",
+          description: "Completed comprehensive bootcamp covering Sui blockchain fundamentals and Move programming language",
+          category: "Blockchain",
+          gradient: "from-blue-500 to-cyan-500",
+          credentialUrl: null
+        },
+        {
+          _id: '2',
+          title: "Sui Fundamentals (Move & Sui Blockchain)",
+          issuer: "Sui Network",
+          type: "On-chain NFT Certificate",
+          event: null,
+          period: "11/2025 - 11/2025",
+          description: "Mastered Move programming language and Sui blockchain architecture, smart contract development, and decentralized application building",
+          category: "Blockchain",
+          gradient: "from-purple-500 to-indigo-500",
+          credentialUrl: null
+        },
+        {
+          _id: '3',
+          title: "Introduction to Ethical Hacking",
+          issuer: "Great Learning Academy",
+          type: null,
+          event: null,
+          period: "06/2023 - 06/2023",
+          description: "Learned fundamentals of ethical hacking, cybersecurity practices, and security assessment methodologies",
+          category: "Cybersecurity",
+          gradient: "from-red-500 to-pink-500",
+          credentialUrl: null
+        },
+        {
+          _id: '4',
+          title: "OBSCURA: The Future of Cybercrime",
+          issuer: "Flare",
+          type: null,
+          event: null,
+          period: "10/2025 - 10/2025",
+          description: "Explored emerging cybercrime trends, security threats, and defense strategies in modern cybersecurity landscape",
+          category: "Cybersecurity",
+          gradient: "from-orange-500 to-red-500",
+          credentialUrl: null
+        },
+        {
+          _id: '5',
+          title: "Certificate of Participation",
+          event: "Virtual Youth Summit 2025",
+          issuer: "IGER Africa",
+          type: null,
+          period: "09/2025 - 09/2025",
+          description: "Active participation in youth summit focused on technology, innovation, and community development",
+          category: "Leadership",
+          gradient: "from-green-500 to-emerald-500",
+          credentialUrl: null
+        }
+      ]);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <section id="certificates" className="py-16 sm:py-20 lg:py-24 relative bg-slate-900/50">
+        <div className="container mx-auto px-4 text-center">
+          <div className="text-cyan-400 text-xl">Loading certificates...</div>
+        </div>
+      </section>
+    );
+  }
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -83,7 +141,7 @@ const CertificatesSection = () => {
         <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {certificates.map((certificate) => (
             <div
-              key={certificate.id}
+              key={certificate._id}
               className="group glass-effect p-6 sm:p-8 rounded-2xl hover-glow transition-all duration-300 hover:scale-105 relative overflow-hidden"
             >
               {/* Background gradient on hover */}

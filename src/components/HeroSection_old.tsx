@@ -2,58 +2,20 @@ import { useState, useEffect } from 'react';
 import { ArrowDown, Code, Github, Linkedin, Mail, Download, Twitter, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
 const HeroSection = () => {
-  const [heroData, setHeroData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [currentTagline, setCurrentTagline] = useState(0);
-
-  useEffect(() => {
-    fetchHero();
-  }, []);
-
-  const fetchHero = async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/hero`);
-      const data = await response.json();
-      if (data.success && data.data) {
-        setHeroData(data.data);
-      }
-    } catch (error) {
-      console.error('Error fetching hero:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fallback data
-  const fallbackData = {
-    name: "Sharif Iddrisu",
-    taglines: [
-      "Blockchain & Software Developer",
-      "Web3 Infrastructure Builder",
-      "Building Secure, Scalable Systems"
-    ],
-    subtitle: "Computer Science Student | Blockchain & Software Developer | Passionate About Web3 Infrastructure and Open Source Development",
-    profileImage: "/assets/1.jpg",
-    cvUrl: "/assets/Sharif CV.pdf",
-    socialLinks: {
-      github: "https://github.com/noblex1",
-      linkedin: "https://www.linkedin.com/in/sharifiddrisu/",
-      twitter: "https://x.com/SharifIddr31325",
-      facebook: "https://facebook.com/baba.sharif.545"
-    }
-  };
-
-  const data = heroData || fallbackData;
+  const taglines = [
+    "Blockchain & Software Developer",
+    "Web3 Infrastructure Builder",
+    "Building Secure, Scalable Systems"
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTagline((prev) => (prev + 1) % data.taglines.length);
+      setCurrentTagline((prev) => (prev + 1) % taglines.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [data.taglines.length]);
+  }, [taglines.length]);
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -61,20 +23,12 @@ const HeroSection = () => {
 
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = data.cvUrl;
-    link.download = `${data.name.replace(' ', '_')}_CV.pdf`;
+    link.href = '/assets/Sharif CV.pdf'; // CV file in public/assets/
+    link.download = 'Sharif_Iddrisu_CV.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
-
-  if (loading) {
-    return (
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-16">
-        <div className="text-cyan-400 text-xl">Loading...</div>
-      </section>
-    );
-  }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-16">
@@ -111,8 +65,8 @@ const HeroSection = () => {
             {/* Profile Image */}
             <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 xl:w-64 xl:h-64 mx-auto rounded-full glass-effect p-1.5 neon-glow shadow-2xl">
               <img
-                src={data.profileImage}
-                alt={data.name}
+                src="/assets/1.jpg" // Make sure this path is correct and the image is in public/assets/
+                alt="Sharif Iddrisu"
                 className="w-full h-full object-cover rounded-full ring-2 ring-cyan-400/20"
               />
             </div>
@@ -129,7 +83,7 @@ const HeroSection = () => {
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-gray-300 mb-2 sm:mb-3 lg:mb-4">
             Hello, I'm{' '}
             <span className="text-gradient font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              {data.name}
+              Sharif Iddrisu
             </span>
           </h1>
         </div>
@@ -137,13 +91,15 @@ const HeroSection = () => {
         {/* Animated Tagline */}
         <div className="mb-6 sm:mb-8 lg:mb-10 h-14 sm:h-16 lg:h-20 xl:h-24 flex items-center justify-center">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-orbitron font-bold text-gradient bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent leading-tight px-2">
-            {data.taglines[currentTagline]}
+            {taglines[currentTagline]}
           </h2>
         </div>
 
         {/* Subtitle */}
         <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-400 mb-6 sm:mb-8 lg:mb-12 xl:mb-16 max-w-4xl mx-auto leading-relaxed px-2">
-          {data.subtitle}
+          Computer Science Student | Blockchain & Software Developer | Passionate About{' '}
+          <span className="text-cyan-400 font-medium">Web3 Infrastructure</span> and{' '}
+          <span className="text-blue-400 font-medium">Open Source Development</span>
         </p>
 
         {/* CTA Buttons */}
@@ -178,7 +134,7 @@ const HeroSection = () => {
         {/* Social Links */}
         <div className="flex justify-center gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 lg:mb-12 xl:mb-16">
           <a
-            href={data.socialLinks.github}
+            href="https://github.com/noblex1"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
@@ -187,7 +143,7 @@ const HeroSection = () => {
             <Github className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400 group-hover:text-white transition-colors" />
           </a>
           <a
-            href={data.socialLinks.linkedin}
+            href="https://www.linkedin.com/in/sharifiddrisu/"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
@@ -196,7 +152,7 @@ const HeroSection = () => {
             <Linkedin className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400 group-hover:text-white transition-colors" />
           </a>
           <a
-            href={data.socialLinks.twitter}
+            href="https://x.com/SharifIddr31325"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
@@ -205,7 +161,7 @@ const HeroSection = () => {
             <Twitter className="h-5 w-5 sm:h-6 sm:w-6 text-gray-300 group-hover:text-white transition-colors" />
           </a>
           <a
-            href={data.socialLinks.facebook}
+            href="https://facebook.com/baba.sharif.545"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-effect p-3 sm:p-4 rounded-full hover-glow transition-all duration-300 group"
